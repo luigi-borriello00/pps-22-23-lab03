@@ -13,4 +13,8 @@ object Lab03 extends App:
       case (Cons(_, t), i) => drop(t, i-1)
       case _ => Nil()
 
+    def append[A](left: List[A], right: List[A]): List[A] = (left, right) match
+      case (Nil(), _) => right
+      case(Cons(h, t), _) => Cons(h, append(t, right))
+
 
