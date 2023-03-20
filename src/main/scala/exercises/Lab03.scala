@@ -17,4 +17,12 @@ object Lab03 extends App:
       case (Nil(), _) => right
       case(Cons(h, t), _) => Cons(h, append(t, right))
 
+    def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = (l, f) match
+      case(Nil(), _) => Nil()
+      case(Cons(h, t), f) => append(f(h), flatMap(t)(f))
+
+
+
+
+
 
