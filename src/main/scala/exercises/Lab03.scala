@@ -50,8 +50,14 @@ object Lab03 extends App:
         case Student(n, _) => n
         case Teacher(n, _) => n
 
-      def getCourses(l: List[Person]): List[String] = l match
-        case Cons(h, t) =>
+      def getCourses(l: List[Person]): List[String] =
+        flatMap(l)(e => e match
+          case Teacher(_, c) => Cons(c, Nil())
+          case _ => Nil()
+        )
+
+
+
 
 
 
