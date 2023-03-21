@@ -6,24 +6,56 @@ object Lab03 extends App:
     case Nil()
 
   object List:
-    @scala.annotation.tailrec
+    // 1a
     def drop[A](l: List[A], n: Int): List[A] = (l, n) match
-      case(l, 0) => l
-      case(l, i) if i < 0 => l
-      case (Cons(_, t), i) => drop(t, i-1)
-      case _ => Nil()
+      case(Cons(h, t), n) if n > 0 => drop(t, n-1)
+      case _ => l
 
+    // 1b
     def append[A](left: List[A], right: List[A]): List[A] = (left, right) match
       case (Nil(), _) => right
       case(Cons(h, t), _) => Cons(h, append(t, right))
 
+    // 1c
     def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = (l, f) match
       case(Nil(), _) => Nil()
       case(Cons(h, t), f) => append(f(h), flatMap(t)(f))
 
-    def map[A, B](l: List[A])(f: A => B): List[B] = (l, f) match
-      case(Nil(), _) => Nil()
-      case(Cons(h, t), f) => Cons(f(h), map(t)(f))
+    // 1d
+    def map[A, B](l: List[A])(f: A => B): List[B] =
+      flatMap(l)(e => Cons(f(e), Nil()))
+
+    def filter[A](l: List[A])(p: A => Boolean): List[A] =
+      flatMap(l)(
+        e => p(e) match
+        case true => Cons(e, Nil())
+        case false => Nil()
+      )
+
+    // 2
+    def max(l: List[Int]): Option[Int] = l match
+      case Nil() => None
+      case(Cons(h, t)) => max(t) match
+        case None => Some(h)
+        case Some(e) => Some(Integer.max(h, e))
+
+    // 3
+  enum Person:
+    case Student(name: String, year: Int)
+    case Teacher(name: String, course: String)
+
+  object Person:
+    import exercises.Lab03.List.*
+      def name(p: Person): String = p match
+        case Student(n, _) => n
+        case Teacher(n, _) => n
+
+      def getCourses(l: List[Person]): List[String] = l match
+        case Cons(h, t) =>
+
+
+
+
 
 
 

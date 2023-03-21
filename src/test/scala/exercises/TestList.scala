@@ -22,7 +22,15 @@ class TestList:
   @Test def testFlatMap() =
     assertEquals(Cons(11, Cons(21, Cons(31, Nil()))), flatMap(l) (v => Cons(v + 1, Nil())))
     assertEquals(Cons(11, Cons(12, Cons(21, Cons(22, Cons(31, Cons(32, Nil())))))), flatMap(l)(v => Cons(v + 1, Cons(v + 2, Nil()))))
-    
-  @Test def testMap() = 
+
+  @Test def testMap() =
     assertEquals(Cons(11, Cons(21, Cons(31, Nil()))), map(l) (v => v + 1))
     assertEquals(Cons(100, Cons(200, Cons(300, Nil()))), map(l) (v => v * 10))
+
+  @Test def testFilter() =
+    assertEquals(Cons(10, Cons(20,(Cons(30, Nil())))), filter(l) (v => v % 10 == 0))
+    assertEquals(Cons(30, Nil()), filter(l) (v => v % 10 == 0 && v % 3 == 0))
+    
+  @Test def testMax() =
+    assertEquals(Some(30), max(l))
+    assertEquals(None, max(Nil()))
