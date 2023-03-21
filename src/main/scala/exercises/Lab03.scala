@@ -1,5 +1,7 @@
 package exercises
 
+import scala.annotation.tailrec
+
 object Lab03 extends App:
   enum List[E]:
     case Cons(head: E, tail: List[E])
@@ -59,6 +61,7 @@ object Lab03 extends App:
   // 4
   import List.*
 
+  @tailrec
   def foldLeft[A, B](l: List[A])(d: B)(f: (B, A) => B): B = l match
     case Nil() => d
     case Cons(h, t) => foldLeft(t)(f(d, h))(f)
