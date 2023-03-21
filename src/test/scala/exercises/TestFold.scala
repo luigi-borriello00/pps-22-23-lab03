@@ -17,5 +17,9 @@ class TestFold {
     assertEquals(16, foldRight(lst)(0)(_ + _))
     assertEquals(105, foldRight(lst)(1)(_ * _))
 
+    assertEquals(-8, foldRight2(lst)(0)(_ - _))
+    assertEquals(16, foldRight2(lst)(0)(_ + _))
+    assertEquals(105, foldRight2(lst)(1)(_ * _))
+
 
 }

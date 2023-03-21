@@ -9,9 +9,11 @@ object Lab03 extends App:
 
   object List:
     // 1a
+    @tailrec
     def drop[A](l: List[A], n: Int): List[A] = (l, n) match
-      case(Cons(h, t), n) if n > 0 => drop(t, n-1)
+      case (Cons(h, t), n) if n > 0 => drop(t, n-1)
       case _ => l
+
 
     // 1b
     def append[A](left: List[A], right: List[A]): List[A] = (left, right) match
@@ -33,6 +35,10 @@ object Lab03 extends App:
         case true => Cons(e, Nil())
         case false => Nil()
       )
+
+    def invert[A](l: List[A]): List[A] = l match
+      case Nil() => Nil()
+      case Cons(h, t) => append(invert(t), Cons(h, Nil()))
 
     // 2
     def max(l: List[Int]): Option[Int] = l match
@@ -66,9 +72,14 @@ object Lab03 extends App:
     case Nil() => d
     case Cons(h, t) => foldLeft(t)(f(d, h))(f)
 
-  def foldRight[A, B](l: List[A])(d: B)(f: (A, B) => B): B = l match
+
+  def foldRight[A, B](l: List[A])(d: B)(f: (A, B) => B): B =
+    foldLeft(invert(l))(d)((b, a) => f(a, b))
+
+  
+  def foldRight2[A, B](l: List[A])(d: B)(f: (A, B) => B): B = l match
     case Nil() => d
-    case Cons(h, t) => f(h, foldRight(t)(d)(f))
+    case Cons(h, t) => f(h, foldRight(t)(d)(f)) 
 
 
 

@@ -34,3 +34,6 @@ class TestList:
   @Test def testMax(): Unit =
     assertEquals(Some(30), max(l))
     assertEquals(None, max(Nil()))
+
+  @Test def testInvertList() =
+    assertEquals(Cons(30, Cons(20, Cons(10, Nil()))), invert(l))
