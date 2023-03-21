@@ -39,7 +39,7 @@ object Lab03 extends App:
         case None => Some(h)
         case Some(e) => Some(Integer.max(h, e))
 
-    // 3
+  // 3
   enum Person:
     case Student(name: String, year: Int)
     case Teacher(name: String, course: String)
@@ -55,6 +55,19 @@ object Lab03 extends App:
           case Teacher(_, c) => Cons(c, Nil())
           case _ => Nil()
         )
+
+  // 4
+  import List.*
+
+  def foldLeft[A, B](l: List[A])(d: B)(f: (B, A) => B): B = l match
+    case Nil() => d
+    case Cons(h, t) => foldLeft(t)(f(d, h))(f)
+
+  def foldRight[A, B](l: List[A])(d: B)(f: (A, B) => B): B = l match
+    case Nil() => d
+    case Cons(h, t) => f(h, foldRight(t)(d)(f))
+
+
 
 
 
