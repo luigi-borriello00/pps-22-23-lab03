@@ -9,8 +9,13 @@ class TestFold {
 
   @Test def testFoldLeft() =
     assertEquals(-16, foldLeft(lst)(0)(_ - _))
+    assertEquals(16, foldLeft(lst)(0)(_ + _))
+    assertEquals(105, foldLeft(lst)(1)(_ * _))
 
   @Test def testFoldRight() =
     assertEquals(-8, foldRight(lst)(0)(_ - _))
+    assertEquals(16, foldRight(lst)(0)(_ + _))
+    assertEquals(105, foldRight(lst)(1)(_ * _))
+
 
 }
