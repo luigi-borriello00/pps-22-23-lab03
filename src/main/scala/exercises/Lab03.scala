@@ -5,6 +5,7 @@ import u03.Streams.Stream
 import u03.Streams.Stream.{Cons, Empty}
 
 import scala.annotation.tailrec
+import scala.language.postfixOps
 
 object Lab03 extends App:
   enum List[E]:
@@ -119,11 +120,22 @@ object Lab03 extends App:
       cons(init, iterate(next(init))(next))
 
     def drop[A](stream: Stream[A])(n:Int): Stream[A] = (stream, n) match
-      case (Cons(h, t), n) if n > 0 => drop(t())(n-1)
+      case (Cons(_, t), n) if n > 0 => drop(t())(n-1)
       case _ => stream
 
     def constant[A](k: A): Stream[A] =
       iterate(k)(x => x)
+
+    private def simpleFibonacci(a: Int, b: Int): Stream[Int] = 
+      cons(a, simpleFibonacci(b, b + a))
+
+
+
+    // fibonacci infinite stream
+    def fibonacci(): Stream[Int] = simpleFibonacci(0,1)
+
+
+
 
   end Stream
 

@@ -18,4 +18,9 @@ class TestStream {
     assertEquals(Cons(1, Cons(1, Cons(1, Cons(1, Nil())))), Stream.toList(Stream.take(Stream.constant(1))(4)))
     assertEquals(Cons(2, Cons(2, Cons(2, Cons(2, Nil())))), Stream.toList(Stream.take(Stream.constant(2))(4)))
     assertEquals(Cons(3, Cons(3, Cons(3, Cons(3, Nil())))), Stream.toList(Stream.take(Stream.constant(3))(4)))
+
+  @Test def testFibonacciStreams() =
+    val fibs = Stream.fibonacci()
+    assertEquals(Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Cons(5, Cons(8, Cons(13, Cons(21, Cons(34, Nil())))))))))), Stream.toList(Stream.take(fibs)(10)))
+    assertEquals(Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Cons(5, Cons(8, Cons(13, Nil())))))))), Stream.toList(Stream.take(fibs)(8)))
 }
