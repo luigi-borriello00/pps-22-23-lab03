@@ -119,6 +119,7 @@ object Lab03 extends App:
     def iterate[A](init: => A)(next: A => A): Stream[A] =
       cons(init, iterate(next(init))(next))
 
+    @tailrec
     def drop[A](stream: Stream[A])(n:Int): Stream[A] = (stream, n) match
       case (Cons(_, t), n) if n > 0 => drop(t())(n-1)
       case _ => stream
@@ -126,15 +127,12 @@ object Lab03 extends App:
     def constant[A](k: A): Stream[A] =
       iterate(k)(x => x)
 
-    private def simpleFibonacci(a: Int, b: Int): Stream[Int] = 
-      cons(a, simpleFibonacci(b, b + a))
-
-
 
     // fibonacci infinite stream
-    def fibonacci(): Stream[Int] = simpleFibonacci(0,1)
-
-
+    def fibonacci(): Stream[Int] =
+      def fib(a: Int, b: Int): Stream[Int] =
+        cons(a, fib(b, a + b))
+      fib(0, 1)
 
 
   end Stream
