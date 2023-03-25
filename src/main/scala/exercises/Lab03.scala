@@ -77,11 +77,11 @@ object Lab03 extends App:
     case Nil() => d
     case Cons(h, t) => foldLeft(t)(f(d, h))(f)
 
-
+  // fold right implemented with fold left
   def foldRight[A, B](l: List[A])(d: B)(f: (A, B) => B): B =
     foldLeft(invert(l))(d)((b, a) => f(a, b))
 
-  
+  // fold right implemented without fold left
   def foldRight2[A, B](l: List[A])(d: B)(f: (A, B) => B): B = l match
     case Nil() => d
     case Cons(h, t) => f(h, foldRight(t)(d)(f)) 
